@@ -14,5 +14,5 @@ def difference
 end
 
 s = Time.now
-1000.times { difference }
+10000.times { difference }
 puts Time.now - s
