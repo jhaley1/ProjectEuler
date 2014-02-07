@@ -11,4 +11,6 @@ def greatest_product_of_5
   greatest
 end
 
-puts greatest_product_of_5
+s = Time.now
+10000.times { greatest_product_of_5 }
+puts Time.now - s
