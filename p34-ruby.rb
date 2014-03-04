@@ -3,7 +3,7 @@ def digit_factorials
   num = 3
   factorials = { "1" => 1, "2" => 2 }
 
-  until num === 2_540_161
+  until num == 2_540_161
     sum = 0
     num.to_s.each_char do |i|
       fact = if factorials[i]
@@ -14,7 +14,7 @@ def digit_factorials
              end
       sum += fact
     end
-    nums << num if sum === num
+    nums << num if sum == num
 
     num += 1
   end
@@ -23,7 +23,7 @@ def digit_factorials
 end
 
 def get_fact(num)
-  return 1 if num === 0
+  return 1 if num == 0
   (1..num).inject(:*)
 end
 
