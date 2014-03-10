@@ -7,43 +7,45 @@
 #   Using words.txt (right click and 'Save Link/Target As...'), a 16K text file containing nearly two-thousand common English words, how many are triangle words?
 
 
+@values = {}
+
 def alphabet_position(letter)
-  @values = @values || {}
   return @values[letter] if @values[letter]
 
-  ('a'..'z').each_with_index do |curr, i|
+  ('A'..'Z').each_with_index do |curr, i|
     @values[curr] = i + 1
     return (i + 1) if curr == letter
   end
 end
 
-def tn_calc(num)
-  (num * 0.5) * (num + 1)
-end
-
 def triangle_number?(total)
   (1..total).each do |i|
-    return true if total == tn_calc(i)
+    return true if total == (i * 0.5) * (i + 1)
   end
 
   false
 end
 
 def triangle_words
-  triangle_nums = []
+  triangle_nums = 0
   f = File.open("tmp/words.txt", "r").read().split(/,/)
 
   f.each do |word|
     total = 0
 
-    word.gsub('"', "").split(//).each do |c|
-      total += alphabet_position(c.downcase)
+    word.each_char do |c|
+      next if c == '"'
+      total += @values[c] ? @values[c] : alphabet_position(c)
     end
 
-    triangle_nums << word if triangle_number?(total)
+    triangle_nums += 1 if triangle_number?(total)
   end
 
-  triangle_nums.length
+  triangle_nums
 end
 
-puts triangle_words
+s = Time.now
+100.times do
+  triangle_words
+end
+puts Time.now - s
