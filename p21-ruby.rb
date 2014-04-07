@@ -1,22 +1,30 @@
-def amicable_numbers?(num)
-  result = sum_of_proper_divisors(num)
-  sum_of_proper_divisors(result) == num
+def amicable_number?(num)
+  original_divisor_sum = get_proper_divisors(num)
+  second_divisor_sum = get_proper_divisors(original_divisor_sum)
+
+  return false if original_divisor_sum == second_divisor_sum
+  num == second_divisor_sum
 end
 
-def sum_of_proper_divisors(num)
+def get_proper_divisors(num)
   sum = 0
+
   (1..num / 2).each do |i|
     sum += i if num % i == 0
   end
+
   sum
 end
 
-def amicable(max)
+def amicable_numbers(limit)
   sum = 0
-  (1..max).each do |i|
-    sum += i if amicable_numbers?(i)
+
+  (2...limit).each do |num|
+    sum += num if amicable_number?(num)
+    puts num if amicable_number?(num)
   end
+
   sum
 end
 
-puts amicable(10_000)
+puts amicable_numbers(10_000)

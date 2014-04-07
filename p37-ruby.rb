@@ -1,5 +1,5 @@
 class Fixnum
-  @@primes = [2]
+  @@primes = { 2 => true }
 
   def prime?
     return false if self == 1
@@ -10,7 +10,7 @@ class Fixnum
       return false if self % i == 0
     end
 
-    @@primes << self
+    @@primes[self] = true
     true
   end
 end
@@ -24,12 +24,10 @@ def truncatable_prime?(num)
   until length == 1
     start = num.divmod(i)[0]
     finish = num_r.divmod(i)[0]
-    num = num.divmod(i)[0]
-    num_r = num_r.divmod(i)[0]
     return false unless start.prime? and finish.prime?
 
     length -= 1
-    i *= 1
+    i *= 10
   end
 
   true
@@ -51,6 +49,5 @@ def truncatable_primes
   sum
 end
 
-puts truncatable_primes
-# puts truncatable_prime?(3797)
-# puts truncatable_prime?(739397)
+puts truncatable_prime? 739397
+# puts truncatable_primes
