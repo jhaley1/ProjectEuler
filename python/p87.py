@@ -31,33 +31,45 @@ def power(base, exp):
     else:
         return m.pow(base, exp)
 
-def sum_to_prime(prime, primes):
+def sums_of_prime_powers(primes, limit):
+    pows2 = [] 
+    pows3 = [] 
+    pows4 = [] 
     exps = [2, 3, 4]
-
-    exps2 = []
-    exps3 = []
-    exps4 = []
-
-    for exp in exps:
-        if exp == 2:
-            exps[2].append(prime ** exp)
-        elif exp == 3:
-            exps[3].append(prime ** exp)
-        else:
-            exps[3].append(prime ** exp)
-
-def power_triples(num):
-    primes = get_primes(num)
-
+    target = []
+    ts = {}
+    
     for prime in primes:
-        return True if sum_to_prime(prime, primes)
+        for exp in exps:
+            num = power(prime, exp)
+            if num > limit:
+                continue 
+            if exp == 2:
+                pows2.append(num)
+            elif exp == 3:
+                pows3.append(num)
+            else:
+                pows4.append(num)
 
-    return False
+    for pow1 in pows2:
+        for pow2 in pows3:
+            tmp1 = pow1 + pow2
+            if tmp1 > limit:
+                continue
+            for pow3 in pows4:
+                tmp2 = tmp1 + pow3
+                if tmp2 > limit:
+                    continue
+                if not ts.get(str(tmp2)): 
+                    ts[str(tmp2)] = True
+                    target.append(tmp2)
+    return target
 
 def prime_power_triples(limit):
     count = []
+    prime_limit = int(m.sqrt(limit))
+    primes = get_primes(prime_limit)
+    return len(sums_of_prime_powers(primes, limit))
 
-    for num in range(28, limit):
-        count.append(num) if power_triples(num)
 
-print prime_power_triples(50)
+print prime_power_triples(50000000)
