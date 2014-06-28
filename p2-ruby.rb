@@ -29,3 +29,5 @@ end
 s = Time.now
 10000.times{ fibs2() }
 puts Time.now - s
+puts fibs2
+

@@ -1,35 +1,46 @@
-def reverse(num)
-  reverse = 0
+def sum_of_digits(num)
+  digits = get_digits(num)
+  digits.inject(:+)
+end
 
-  while num != 0
-    reverse = (reverse * 10 + num % 10)
-    num /= 10
+def reverse(num)
+  num.to_s.reverse.to_i
+end
+
+def get_digits(num)
+  digits = []
+
+  until num < 10
+    divmod = num.divmod(10)
+    num = divmod[0]
+    digits << divmod[1]
   end
 
-  reverse
+  digits << num
+
+  digits
 end
 
 def only_odd_digits?(num)
-  while num > 0
-    return false if (num % 10) % 2 == 0
-    num /= 10
+  return false if num.even?
+
+  until num < 10
+    divmod = num.divmod(10)
+    return false unless divmod[1].odd?
+    num = divmod[0]
   end
 
+  return false unless num.odd?
   true
 end
 
-@reversible_numbers = {}
-
 def reversible?(num)
-  return false if num % 10 == 0
-  return true if @reversible_numbers[num] == true
-  reverse = reverse(num)
-  sum = num + reverse
-
+  sum = sum_of_digits(num)
   return false unless only_odd_digits?(sum)
 
-  @reversible_numbers[num] = true
-  @reversible_numbers[reverse] = true
+  reverse = reverse(num)
+  sum_reverse = sum_of_digits(reverse)
+  return false unless only_odd_digits(sum_reverse)
 
   true
 end
@@ -37,14 +48,12 @@ end
 def reversible_numbers(limit)
   reversible_numbers = 0
 
-  (10...limit).each do |num|
+  (1...limit).each do |num|
     reversible_numbers += 1 if reversible?(num)
   end
 
   reversible_numbers
 end
 
-s = Time.now
-puts reversible_numbers(1_000_000_000)
-puts Time.now - s
+# puts reversible_numbers(1_000_000_000)
 puts reversible_numbers(1000) # 120
