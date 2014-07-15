@@ -2,13 +2,18 @@ package main
 
 import (
   "fmt"
+  "math"
   "./primes"
 )
 
 func largest_prime_factor(num int) int {
   factors := []int{}
+  sqrt := math.Sqrt(float64(num))
+  max := int(sqrt)
 
-  for i := 2; i < (num / 2) + 1; i++ {
+  for i := 2; i < max; i++ {
+    primes.Isprime(i)
+
     if num % i == 0 {
       factors = append(factors, i)
     }
@@ -19,17 +24,17 @@ func largest_prime_factor(num int) int {
 
   for j := 2; j < factorsLen; j++ {
     factor := factors[j]
+
     if primes.Isprime(factor) {
       largest = factor
     }
   }
 
-  fmt.Println(factors)
   return largest
 }
 
 func main() {
-  // num := 600851475143
-  // fmt.Println(largest_prime_factor(num))
-  fmt.Println(largest_prime_factor(13195))
+  num := 600851475143
+  fmt.Println(largest_prime_factor(num))
+  // fmt.Println(largest_prime_factor(13195))
 }

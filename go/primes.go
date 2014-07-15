@@ -5,28 +5,28 @@ import "math"
 var primes = []int{2}
 
 func Isprime(num int) bool {
-  num_f := float64(num)
-  max := int(math.Sqrt(num_f)) + 1
+  numF := float64(num)
+  max := int(math.Sqrt(numF)) + 1
   primesLen := len(primes) - 1
-  is_prime := true
+  isPrime := true
 
   for i := 0; i < primesLen; i++ {
-    last_prime := primes[i]
+    lastPrime := primes[i]
 
-    if num % last_prime == 0 {
-      is_prime = false
+    if num % lastPrime == 0 {
+      isPrime = false
       break
     }
 
-    if last_prime > max {
-      is_prime = true
+    if lastPrime > max {
+      isPrime = true
       break
     }
   }
 
-  if is_prime {
+  if isPrime {
     primes = append(primes, num)
   }
 
-  return is_prime
+  return isPrime
 }

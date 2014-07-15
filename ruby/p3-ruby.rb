@@ -34,4 +34,9 @@ def lpf(num)
 end
 
 # puts lpf(13195)
-puts lpf(600_851_475_143)
+
+s = Time.now
+10_000.times do
+  lpf(600_851_475_143)
+end
+puts Time.now - s
