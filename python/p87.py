@@ -7,11 +7,9 @@ def is_prime(num):
     upper_bound = int(m.sqrt(num)) + 1
 
     for i in range(2, upper_bound):
-        if num in stored_primes:
-            return True
+        if num in stored_primes: return True
 
-        if num % i == 0:
-            return False
+        if num % i == 0: return False
 
     stored_primes[num] = True
     return True
@@ -20,8 +18,7 @@ def get_primes(limit):
     primes = []
 
     for i in range(2, limit):
-        if is_prime(i):
-            primes.append(i)
+        if is_prime(i): primes.append(i)
 
     return primes
 
@@ -42,8 +39,8 @@ def sums_of_prime_powers(primes, limit):
     for prime in primes:
         for exp in exps:
             num = power(prime, exp)
-            if num > limit:
-                continue 
+            if num > limit: continue
+
             if exp == 2:
                 pows2.append(num)
             elif exp == 3:
@@ -54,12 +51,12 @@ def sums_of_prime_powers(primes, limit):
     for pow1 in pows2:
         for pow2 in pows3:
             tmp1 = pow1 + pow2
-            if tmp1 > limit:
-                continue
+            if tmp1 > limit: continue
+
             for pow3 in pows4:
                 tmp2 = tmp1 + pow3
-                if tmp2 > limit:
-                    continue
+                if tmp2 > limit: continue
+
                 if not ts.get(str(tmp2)): 
                     ts[str(tmp2)] = True
                     target.append(tmp2)

@@ -6,6 +6,8 @@ import (
 func isPalindrome(num int) bool {
   forwards := []int
   backwards := []int
+
+
 }
 
 func largestPalindromicProduct() int {

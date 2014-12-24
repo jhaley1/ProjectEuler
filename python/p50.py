@@ -7,11 +7,9 @@ def is_prime(num):
     upper_bound = int(m.sqrt(num)) + 1
 
     for i in range(2, upper_bound):
-        if num in stored_primes:
-            return True
+        if num in stored_primes: return True
 
-        if num % i == 0:
-            return False
+        if num % i == 0: return False
 
     stored_primes[num] = True
     return True
@@ -20,8 +18,7 @@ def get_primes(limit):
     primes = []
 
     for i in range(2, limit):
-        if is_prime(i):
-            primes.append(i)
+        if is_prime(i): primes.append(i)
 
     return primes
 
